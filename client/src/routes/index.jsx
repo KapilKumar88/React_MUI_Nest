@@ -1,6 +1,7 @@
 import {
     createBrowserRouter,
 } from "react-router-dom";
+import DataTable from "../components/datatable.jsx";
 import DefaultLayout from "../layout/default-layout.jsx";
 import DashboardPage from "../pages/dashboard-page.jsx";
 import ErrorPage from "../pages/error-page.jsx";
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
             {
                 path: 'dashboard',
                 element: <DashboardPage />
+            },
+            {
+                path: 'datatable',
+                element: <DataTable />
             }
         ]
     },

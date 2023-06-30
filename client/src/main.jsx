@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   RouterProvider,
 } from "react-router-dom";
-import { ThemeProvider } from '@mui/material/styles'; 5
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import './index.css'
+import './index.css';
 import router from './routes';
 import defaultTheme from './theme/default-theme';
 
