@@ -1,12 +1,9 @@
-import { Link, useRouteError } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
-export default function ErrorPage() {
-    const error = useRouteError();
-    console.error(error);
-
+export default function UnauthorizedPage() {
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -23,5 +20,5 @@ export default function ErrorPage() {
                 <p>Go to <Link to={"/login"}>Login</Link></p>
             </Box>
         </Container>
-    );
+    )
 }

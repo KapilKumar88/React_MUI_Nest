@@ -2,6 +2,7 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import DataTable from "../components/datatable.jsx";
+import AuthGuard from "../guard/auth-guard.jsx";
 import AuthLayout from "../layout/auth-layout.jsx";
 import DefaultLayout from "../layout/default-layout.jsx";
 import DashboardPage from "../pages/dashboard-page.jsx";
@@ -10,20 +11,28 @@ import ForgotPasswordPage from "../pages/forgot-password-page.jsx";
 import LoginPage from "../pages/login-page.jsx";
 import RegisterPage from "../pages/register-page.jsx";
 import ResetPasswordPage from "../pages/reset-password-page.jsx";
+import UnauthorizedPage from "../pages/unauthorized-page.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <DefaultLayout />,
+        element: <AuthGuard />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: 'dashboard',
-                element: <DashboardPage />
-            },
-            {
-                path: 'datatable',
-                element: <DataTable />
+                path: "/",
+                element: <DefaultLayout />,
+                errorElement: <ErrorPage />,
+                children: [
+                    {
+                        path: 'dashboard',
+                        element: <DashboardPage />
+                    },
+                    {
+                        path: 'datatable',
+                        element: <DataTable />
+                    }
+                ]
             }
         ]
     },
@@ -50,6 +59,10 @@ const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: "/unauthorized",
+        element: <UnauthorizedPage />,
+    }
 ]);
 
 export default router;
