@@ -38,18 +38,22 @@ export class TaskController {
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  async findAll(@AuthenticatedUser() authUser: User) {
+    const result = await this.taskService.findAll(authUser);
+    return {
+      success: true,
+      message: 'Task fetched successfully',
+      data: result,
+    };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.update(+id, updateTaskDto);
+  @Patch()
+  async update(@Body() updateTaskDto: UpdateTaskDto): Promise<ApiResponse> {
+    await this.taskService.update(updateTaskDto);
+    return {
+      success: true,
+      message: 'Task details updated successfully.',
+    };
   }
 
   @Delete(':id')

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Task } from '@prisma/client';
+import { Task, User } from '@prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -31,16 +31,26 @@ export class TaskService {
     });
   }
 
-  findAll() {
-    return `This action returns all task`;
+  findAll(authUser: User) {
+    return this.prismaService.task.findMany({
+      where: {
+        userId: authUser.userId,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
-  }
-
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(data: UpdateTaskDto) {
+    return this.prismaService.task.update({
+      where: {
+        taskId: data.taskId,
+      },
+      data: {
+        taskName: data.taskName,
+        taskDescription: data.taskDescription,
+        status: data.status,
+        completedDate: data?.completedDate,
+      },
+    });
   }
 
   remove(id: number) {
