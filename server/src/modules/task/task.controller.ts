@@ -16,6 +16,7 @@ import { AuthGuard } from 'src/modules/auth/guard/auth.guard';
 import { User } from '@prisma/client';
 import { AuthenticatedUser } from '../../decorator/authenticated-user/authenticated-user.decorator';
 import { ApiResponse } from 'src/types/api-response.type';
+import { DeleteTaskDto } from './dto/delete-task.dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
@@ -52,7 +53,11 @@ export class TaskController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.taskService.remove(+id);
+  async remove(@Param() params: DeleteTaskDto): Promise<ApiResponse> {
+    await this.taskService.remove(+params.id);
+    return {
+      success: true,
+      message: 'Task deleted successfully',
+    };
   }
 }

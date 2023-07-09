@@ -23,6 +23,14 @@ export class TaskService {
     });
   }
 
+  taskExists(id: number): Promise<number> {
+    return this.prismaService.task.count({
+      where: {
+        taskId: id,
+      },
+    });
+  }
+
   findAll() {
     return `This action returns all task`;
   }
@@ -36,6 +44,10 @@ export class TaskService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} task`;
+    return this.prismaService.task.delete({
+      where: {
+        taskId: id,
+      },
+    });
   }
 }
