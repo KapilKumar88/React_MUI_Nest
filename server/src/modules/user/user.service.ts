@@ -4,7 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   /**
    * Check if the given email id already exists in the database or not
@@ -31,6 +31,22 @@ export class UserService {
         name: payload.name,
         email: payload.email,
         password: payload.password,
+      },
+    });
+  }
+
+  findUserByEmail(email: string): Promise<User> {
+    return this.prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+  }
+
+  findUserById(id: number): Promise<User> {
+    return this.prisma.user.findFirst({
+      where: {
+        userId: id,
       },
     });
   }
