@@ -9,6 +9,7 @@ import appConfig from './config/app.config';
 import { UniqueEmailValidation } from './customer_validation/unique_email_validation.rule';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserService } from './modules/user/user.service';
+import { TaskModule } from './modules/task/task.module';
 import jwtConfig from './config/jwt.config';
 
 @Module({
@@ -21,6 +22,7 @@ import jwtConfig from './config/jwt.config';
     UserModule,
     AuthModule,
     JwtModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserService, UniqueEmailValidation],
