@@ -1,20 +1,40 @@
 import Button from '@mui/material/Button';
+import { useSnackbar } from 'notistack';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from '../../redux/services/auth/auth-service';
 
 export default function RegisterPage() {
+    const { enqueueSnackbar } = useSnackbar();
+    const [Register] = useRegisterMutation();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            const result = await Register({
+                email: data.email,
+                name: `${data.firstName} ${data.lastName}`,
+                password: data.password,
+            }).unwrap();
+            if (result?.success) {
+                enqueueSnackbar(result?.message, {
+                    variant: 'success'
+                });
+                navigate("/login");
+                return;
+            }
+        } catch (error) {
+            console.log(error, '>>>>>>>>>>error>>>>>>>>>>>>');
+        }
     };
 
     return (

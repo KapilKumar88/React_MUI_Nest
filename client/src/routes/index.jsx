@@ -7,10 +7,10 @@ import AuthLayout from "../layout/auth-layout.jsx";
 import DefaultLayout from "../layout/default-layout.jsx";
 import DashboardPage from "../pages/dashboard-page.jsx";
 import ErrorPage from "../pages/error-page.jsx";
-import ForgotPasswordPage from "../pages/forgot-password-page.jsx";
-import LoginPage from "../pages/login-page.jsx";
-import RegisterPage from "../pages/register-page.jsx";
-import ResetPasswordPage from "../pages/reset-password-page.jsx";
+import ForgotPasswordPage from "../pages/auth/forgot-password-page.jsx";
+import LoginPage from "../pages/auth/login-page.jsx";
+import RegisterPage from "../pages/auth/register-page.jsx";
+import ResetPasswordPage from "../pages/auth/reset-password-page.jsx";
 import UnauthorizedPage from "../pages/unauthorized-page.jsx";
 
 const router = createBrowserRouter([

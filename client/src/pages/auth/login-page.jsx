@@ -5,19 +5,38 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Link } from "react-router-dom";
+import { useSnackbar } from 'notistack';
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import { useLoginMutation } from '../../redux/services/auth/auth-service';
 
 export default function LoginPage() {
+    const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+    const [Login] = useLoginMutation();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-
+    const onSubmit = async (data) => {
+        try {
+            const result = await Login({
+                email: data.email,
+                password: data.password
+            }).unwrap();
+            if (result?.success) {
+                localStorage.setItem("user", result?.data);
+                enqueueSnackbar(result?.message, {
+                    variant: 'success'
+                });
+                navigate("/dashboard");
+                return;
+            }
+        } catch (error) {
+            console.log(error, '>>>>>>>>>>>>>>.erororro');
+        }
     };
 
     return (
