@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function AuthGuard() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
     return (
         isAuthenticated ? <Outlet /> : <Navigate to={"/unauthorized"} replace />

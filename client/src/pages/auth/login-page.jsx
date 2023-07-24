@@ -27,7 +27,7 @@ export default function LoginPage() {
                 password: data.password
             }).unwrap();
             if (result?.success) {
-                localStorage.setItem("user", result?.data);
+                localStorage.setItem("user", JSON.stringify(result?.data));
                 enqueueSnackbar(result?.message, {
                     variant: 'success'
                 });
