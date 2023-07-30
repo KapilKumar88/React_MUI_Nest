@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Task, User } from '@prisma/client';
+import { TaskStatus } from '../../enums/task-status.enum';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { ListTaskDto } from './dto/list-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import * as moment from 'moment';
 
 @Injectable()
 export class TaskService {
@@ -51,6 +53,9 @@ export class TaskService {
       },
       take: +queryParams?.limit,
       skip: skip,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
@@ -63,7 +68,8 @@ export class TaskService {
         taskName: data.taskName,
         taskDescription: data.taskDescription,
         status: data.status,
-        completedDate: data?.completedDate,
+        completedDate:
+          data.status === TaskStatus.DONE ? moment().toDate() : null,
       },
     });
   }
