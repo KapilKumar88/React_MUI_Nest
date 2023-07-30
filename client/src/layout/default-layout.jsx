@@ -5,7 +5,7 @@ import { Navbar } from '../components/navbar';
 import { Sidebar } from '../components/sidebar';
 
 export default function DefaultLayout() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const handleDrawerOpen = () => {
         setOpen(true);

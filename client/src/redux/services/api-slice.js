@@ -5,11 +5,10 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: apiConfig.API_URL,
         prepareHeaders: (headers) => {
-            headers.set("accept", "application/json");
-            headers.set("content-type", "application/json");
-            headers.set("authorization", `Bearer ${localStorage.getItem("token")}`);
+            const localStorageItems = JSON.parse(localStorage.getItem("user"));
+            headers.set("Authorization", `Bearer ${localStorageItems?.accessToken}`);
             return headers;
         }
     }),
     endpoints: () => ({}),
-})
+});

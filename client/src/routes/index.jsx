@@ -1,7 +1,6 @@
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import DataTable from "../components/datatable.jsx";
 import AuthGuard from "../guard/auth-guard.jsx";
 import AuthLayout from "../layout/auth-layout.jsx";
 import DefaultLayout from "../layout/default-layout.jsx";
@@ -12,6 +11,9 @@ import LoginPage from "../pages/auth/login-page.jsx";
 import RegisterPage from "../pages/auth/register-page.jsx";
 import ResetPasswordPage from "../pages/auth/reset-password-page.jsx";
 import UnauthorizedPage from "../pages/unauthorized-page.jsx";
+import TaskPage from "../pages/task/task-page.jsx";
+import AddTaskPage from "../pages/task/add-task-page.jsx";
+import EditTaskPage from "../pages/task/edit-task-page.jsx";
 
 const router = createBrowserRouter([
     {
@@ -29,8 +31,16 @@ const router = createBrowserRouter([
                         element: <DashboardPage />
                     },
                     {
-                        path: 'datatable',
-                        element: <DataTable />
+                        path: 'task',
+                        element: <TaskPage />
+                    },
+                    {
+                        path: 'add-task',
+                        element: <AddTaskPage />
+                    },
+                    {
+                        path: 'edit-task',
+                        element: <EditTaskPage />
                     }
                 ]
             }

@@ -1,9 +1,11 @@
+import { Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export default function DashboardPage() {
     return (
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Toolbar />
             <Typography paragraph>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
