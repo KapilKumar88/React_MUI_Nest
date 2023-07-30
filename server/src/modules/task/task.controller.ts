@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -17,13 +18,14 @@ import { User } from '@prisma/client';
 import { AuthenticatedUser } from '../../decorator/authenticated-user/authenticated-user.decorator';
 import { ApiResponse } from 'src/types/api-response.type';
 import { DeleteTaskDto } from './dto/delete-task.dto';
+import { ListTaskDto } from './dto/list-task.dto';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 @ApiTags('Task')
 @Controller('task')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private readonly taskService: TaskService) { }
 
   @Post()
   async create(
@@ -38,12 +40,21 @@ export class TaskController {
   }
 
   @Get()
-  async findAll(@AuthenticatedUser() authUser: User) {
-    const result = await this.taskService.findAll(authUser);
+  async findAll(
+    @Query() queryParams: ListTaskDto,
+    @AuthenticatedUser() authUser: User,
+  ) {
+    const result = await this.taskService.findAll(authUser, queryParams);
+    const totalCount = await this.taskService.getUserTotalTask(
+      authUser?.userId,
+    );
     return {
       success: true,
       message: 'Task fetched successfully',
-      data: result,
+      data: {
+        records: result,
+        totalCount: totalCount,
+      },
     };
   }
 
